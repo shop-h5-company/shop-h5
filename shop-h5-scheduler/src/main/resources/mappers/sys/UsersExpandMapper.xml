@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mybatis.dao.sys.UsersExpandMapper">
+	<resultMap id="BaseResultMap" type="com.shop.mybatis.model.generator.Users">
+		<id column="user_id" jdbcType="BIGINT" property="userId" />
+	    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+	    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+	    <result column="union_id" jdbcType="VARCHAR" property="unionId" />
+	    <result column="weixin_bind_time" jdbcType="TIMESTAMP" property="weixinBindTime" />
+	    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+	    <result column="login_password_salt" jdbcType="VARCHAR" property="loginPasswordSalt" />
+	    <result column="his_invite_code" jdbcType="VARCHAR" property="hisInviteCode" />
+	    <result column="invite_user_id" jdbcType="BIGINT" property="inviteUserId" />
+	    <result column="invite_mode" jdbcType="VARCHAR" property="inviteMode" />
+	    <result column="reg_invite_code" jdbcType="VARCHAR" property="regInviteCode" />
+	    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+	    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+	    <result column="is_idcheck" jdbcType="VARCHAR" property="isIdcheck" />
+	    <result column="status" jdbcType="VARCHAR" property="status" />
+	    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+	    <result column="device_source" jdbcType="VARCHAR" property="deviceSource" />
+	    <result column="invite_right" jdbcType="VARCHAR" property="inviteRight" />
+	    <result column="inside_invite_right" jdbcType="VARCHAR" property="insideInviteRight" />
+	    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+	    <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
+	    <result column="business_invite_code" jdbcType="VARCHAR" property="businessInviteCode" />
+	    <result column="is_jajr" jdbcType="VARCHAR" property="isJajr" />
+	    <result column="ip" jdbcType="VARCHAR" property="ip" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="wx_Name" jdbcType="VARCHAR" property="wxName" />
+	    <result column="qq" jdbcType="VARCHAR" property="qq" />
+	    <result column="superior_Id" jdbcType="BIGINT" property="superiorId" />
+	    <result column="subordinate_Id" jdbcType="BIGINT" property="subordinateId" />
+	    <result column="add_Friend" jdbcType="VARCHAR" property="addFriend" />
+	    <result column="become_Agent" jdbcType="VARCHAR" property="becomeAgent" />
+	    <result column="count" jdbcType="INTEGER" property="count" />
+	    <result column="jurisdiction" jdbcType="VARCHAR" property="jurisdiction" />
+	    <result column="to_Examine" jdbcType="VARCHAR" property="toExamine" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="top_Level" jdbcType="BIGINT" property="topLevel" />
+	    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select user_id from users where 1=1
+		<if test="mobile != null and mobile != ''">and mobile = #{mobile}</if>
+		<if test="weixin != null and weixin != ''">and weixin = #{weixin}</if>
+		<if test="idCard != null and idCard != ''">and id_card = #{idCard}</if>
+		<if test="hisInviteCode != null and hisInviteCode != ''">and his_invite_code = #{hisInviteCode}</if>
+		<if test="inviteUserId != null">and invite_user_id = #{inviteUserId}</if>
+	</select>
+	
+	<select id="queryAllById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from users
+		where
+		top_Level = #{topLevel}
+	</select>
+	
+	<select id="querySuperiorId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from users where
+		user_id = #{currentUserId}
+	</select>
+	<!-- <select id="querySuperiorId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from users where
+		invite_user_id = #{currentUserId}
+	</select> -->
+	
+	<select id="querySubordinateIdList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from users where
+		invite_user_id = #{id}
+	</select>
+	
+	<!-- 查询邀请人数 -->
+	<select id="queryCount"  resultType="java.lang.Long">
+		select count(1) from users where invite_user_id=#{inviteUserId}
+		<if test="beginDate !=null and beginDate !=''">
+			and reg_time &gt;= STR_TO_DATE(#{beginDate},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="endDate !=null and endDate !=''">
+			and reg_time &lt;= STR_TO_DATE(#{endDate},'%Y-%m-%d %H:%i:%s')
+		</if>
+	</select>
+	<update id="updateById" parameterType="com.shop.mybatis.model.generator.Users">
+	    update users
+	    set 
+	      user_name = #{userName},
+	      id_card = #{idCard}
+	    where user_id = #{userId}
+	  </update>
+		
+	<update id="updateUserPwd" parameterType="com.shop.mybatis.model.generator.Users">
+	 update users
+	 set  login_password = #{loginPassword,jdbcType=VARCHAR},
+      login_password_salt = #{loginPasswordSalt,jdbcType=VARCHAR},
+      update_Time = #{updateTime,jdbcType=TIMESTAMP}
+    where mobile = #{mobile,jdbcType=VARCHAR}
+	</update>
+	<update id="updateBindWeiXin" parameterType="com.shop.mybatis.model.generator.Users">
+	 update users
+	 set   weixin = #{weixin,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      weixin_bind_time = #{weixinBindTime,jdbcType=TIMESTAMP}
+    where mobile = #{mobile,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryByWeixin" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from users where 1=1 and weixin = #{weixin} limit 1
+	</select>
+	
+	<update id="update" parameterType="com.shop.mybatis.model.generator.Users">
+		update users
+		<set>
+			<if test="userName != null and userName!=''">
+				user_name = #{userName},
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard},
+			</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	  <select id="queryBySuperiorId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    <!--
+    	新增方法
+    -->
+    select count(*) from users where superior_Id = #{id}
+  </select>
+    <update id="updateCountById" parameterType="com.shop.mybatis.model.generator.Users">
+    <!--
+    	新增方法
+    -->
+    update users
+    set count = count+1 where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>
