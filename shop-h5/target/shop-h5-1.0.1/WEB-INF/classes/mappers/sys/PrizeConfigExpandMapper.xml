@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mybatis.dao.sys.PrizeconfigExpandMapper">
+	<resultMap id="BaseResultMap" type="com.shop.mybatis.model.generator.Prizeconfig">
+		<id column="prize_id" jdbcType="BIGINT" property="prizeId" />
+	    <result column="top_Level" jdbcType="BIGINT" property="topLevel" />
+	    <result column="sequence" jdbcType="VARCHAR" property="sequence" />
+	    <result column="sort" jdbcType="VARCHAR" property="sort" />
+	    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+	    <result column="probability" jdbcType="INTEGER" property="probability" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="stock_num" jdbcType="INTEGER" property="stockNum" />
+	</resultMap>
+	
+	<select id="queryAllByTopLevelId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select prize_id, top_Level, sequence, sort, prize_name, probability, update_time,stock_num 
+    	from prizeconfig where
+		top_Level = #{topLevel} order by sequence asc
+	</select>
+	
+	<update id="updateById" parameterType="com.shop.mybatis.model.generator.Prizeconfig">
+		update prizeConfig
+		<set>
+			<if test="sort != null">
+				sort = #{sort},
+			</if>
+			<if test="prizeName != null and prize_name!= '' ">
+				prize_name = #{prizeName},
+			</if>
+			<if test="probability != null">
+				probability = #{probability},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</set>
+		where prize_id = #{prizeId} and top_Level = #{topLevel}
+	</update>
+	  <select id="queryBySequence" resultMap="BaseResultMap">
+    <!--
+		新增的方法
+    -->
+    select prize_id, top_Level, sequence, sort, prize_name, probability, update_time,stock_num
+    from prizeconfig where sequence = #{sequence}
+  </select>
+  <select id="queryBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <!--
+		新增的方法
+    -->
+    select prize_id, top_Level, sequence, sort, prize_name, probability, update_time,stock_num
+    from prizeconfig where sequence = #{sequence} and top_level = #{id}
+  </select>
+  	
+  <update id="updatePrizeNum" parameterType="java.lang.Long">
+  		<!-- 新增方法 -->
+		update prizeconfig set stock_num = stock_num-1 where prize_id = #{prizeId}
+  </update>
+    <insert id="insert" parameterType="com.shop.mybatis.model.generator.Prizeconfig">
+    <!--
+    -->
+    insert into prizeconfig (top_Level, sequence)
+    values (#{topLevel}, #{sequence})
+  </insert>
+</mapper>

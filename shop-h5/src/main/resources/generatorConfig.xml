@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="lib/mysql-connector-java-5.1.26.jar" />
+	<context id="streetlight">
+		<plugin
+			type="org.chinadovey.tools.mybatis.generator.MySQLPaginationPlugin2" />
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://39.106.188.246:3306/shoph5?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"
+			userId="root" password="131122ab" />
+			<!-- 实体 -->
+		<javaModelGenerator targetPackage="com.shop.mybatis.model.generator"
+			targetProject="src/main/java" />
+			<!-- xml文件 -->
+		<sqlMapGenerator targetPackage="mappers.generator"
+			targetProject="src/main/resources" />
+			<!-- mapper文件 -->
+		<javaClientGenerator targetPackage="com.shop.mybatis.dao.generator"
+			targetProject="src/main/java" type="XMLMAPPER" />
+		
+<!-- 
+	<table tableName="liuyan" domainObjectName="Liuyan" />
+	<table tableName="authority" domainObjectName="Authority" />
+	<table tableName="user_rel_authority" domainObjectName="UserRelAuthority" />
+	<table tableName="alipayRecord" domainObjectName="AlipayRecord" />
+	<table tableName="users" domainObjectName="Users" />
+	<table tableName="invite_authority_code" domainObjectName="InviteAuthorityCode" />
+	<table tableName="wxpay_record" domainObjectName="WxpayRecord" />
+-->
+		
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.mybatis.dao.sys.PrizeExpandMapper">
+	<resultMap id="BaseResultMap" type="com.shop.mybatis.model.generator.Prize">
+		<id column="id" jdbcType="BIGINT" property="id" />
+	    <result column="prize_id" jdbcType="BIGINT" property="prizeId" />
+	    <result column="user_id" jdbcType="BIGINT" property="userId" />
+	    <result column="top_Level" jdbcType="BIGINT" property="topLevel" />
+	    <result column="sort" jdbcType="VARCHAR" property="sort" />
+	    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+	    <result column="in_prize_time" jdbcType="TIMESTAMP" property="inPrizeTime" />
+	    <result column="prize_out_time" jdbcType="TIMESTAMP" property="prizeOutTime" />
+	</resultMap>
+	
+	<select id="queryAllById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * from prize
+		where 1 = 1
+			and top_Level = #{id} order by prize_out_time asc,in_prize_time asc
+	</select>
+
+	<update id="updateById" parameterType="java.util.Map">
+	    update prize set prize_out_time = #{prizeOutTime} where id = #{id}
+	</update>
+	
+	  <insert id="" keyProperty="id" parameterType="com.shop.mybatis.model.generator.Prize" useGeneratedKeys="true">
+    <!--
+    	新增方法
+    -->
+    insert into prize (prize_id, user_id, top_Level, 
+      order, sort, prize_name, 
+      in_prize_time, prize_out_time)
+    values (#{prizeId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{topLevel,jdbcType=BIGINT}, 
+      #{order,jdbcType=BIGINT}, #{sort,jdbcType=VARCHAR}, #{prizeName,jdbcType=VARCHAR}, 
+      #{inPrizeTime,jdbcType=TIMESTAMP}, #{prizeOutTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.shop.mybatis.model.generator.Prize" useGeneratedKeys="true">
+    <!--
+    	新增方法
+    -->
+    insert into prize
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prizeId != null">
+        prize_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="topLevel != null">
+        top_Level,
+      </if>
+      <if test="order != null">
+        order,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="prizeName != null">
+        prize_name,
+      </if>
+      <if test="inPrizeTime != null">
+        in_prize_time,
+      </if>
+      <if test="prizeOutTime != null">
+        prize_out_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prizeId != null">
+        #{prizeId},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="topLevel != null">
+        #{topLevel},
+      </if>
+      <if test="order != null">
+        #{order},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="prizeName != null">
+        #{prizeName},
+      </if>
+      <if test="inPrizeTime != null">
+        #{inPrizeTime},
+      </if>
+      <if test="prizeOutTime != null">
+        #{prizeOutTime},
+      </if>
+    </trim>
+  </insert>
+  	<select id="queryAllByCurrentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select id, prize_id, user_id, top_Level, sort, prize_name, in_prize_time, prize_out_time 
+		from prize
+		where user_id = #{userId} order by in_prize_time desc
+	</select>
+  	<select id="getByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select * 
+		from prize
+		where user_id = #{userId} order by prize_out_time asc,in_prize_time asc
+	</select>
+  	<select id="getLastest" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * 
+		from prize order by in_prize_time desc limit #{num}
+	</select>
+</mapper>

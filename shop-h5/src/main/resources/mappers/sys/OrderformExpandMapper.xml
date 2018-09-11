@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mybatis.dao.sys.OrderformExpandMapper">
+  <resultMap id="BaseResultMap" type="com.shop.mybatis.model.generator.Orderform">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="express" jdbcType="VARCHAR" property="express" />
+    <result column="addresser" jdbcType="VARCHAR" property="addresser" />
+    <result column="addressee" jdbcType="VARCHAR" property="addressee" />
+    <result column="merchandise" jdbcType="VARCHAR" property="merchandise" />
+    <result column="shopping_address" jdbcType="VARCHAR" property="shoppingAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+	<select id="queryAllById" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select id, user_id, phone, number, express, addresser, addressee, merchandise, shopping_address, create_time, update_time
+    	from orderform
+		where user_id = #{userId}
+		order by create_time desc
+	</select>
+	
+	<select id="queryAllByPhOrName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select id, user_id, phone, number, express, addresser, addressee, merchandise, shopping_address, create_time, update_time 
+    	from orderform 
+    	where phone = #{phOrName}
+		union
+		select id, user_id, phone, number, express, addresser, addressee, merchandise, shopping_address, create_time, update_time 
+		from orderform 
+		where addressee = #{phOrName}
+		order by create_time desc
+	</select>
+	
+	<update id="updateById" parameterType="com.shop.mybatis.model.generator.Orderform">
+	    update orderform
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=VARCHAR},
+			</if>
+			<if test="express != null">
+				express = #{express,jdbcType=VARCHAR},
+			</if>
+			<if test="addresser != null">
+				addresser = #{addresser,jdbcType=VARCHAR},
+			</if>
+			<if test="addressee != null">
+				addressee = #{addressee,jdbcType=VARCHAR},
+			</if>
+			<if test="merchandise != null">
+				merchandise = #{merchandise,jdbcType=VARCHAR},
+			</if>
+			<if test="shoppingAddress != null">
+				shopping_address = #{shoppingAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
