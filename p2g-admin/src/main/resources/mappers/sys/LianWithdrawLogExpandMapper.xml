@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.LianWithdrawLogExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select lian_withdraw_log_id from lian_withdraw_log where 1=1
+		<if test="orderNo != null and orderNo != ''">
+			and order_no like CONCAT('%',#{orderNo},'%')
+		</if>
+		<if test="lianPayNo != null and lianPayNo != ''">
+			and lian_pay_no like CONCAT('%',#{lianPayNo},'%')
+		</if>
+		<if test="status !=null and status !=''">
+			and status = #{status}
+		</if>
+		<if test="verifyStatus !=null and verifyStatus !=''">
+			and verify_status = #{verifyStatus}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.AdminRoleExpandMapper">
+    <select id="query" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select role_id from admin_role where 1=1
+        <if test="roleName != null">and role_name like CONCAT('%',#{roleName},'%')</if>
+        <if test="roleType != null">and role_type=#{roleType}</if>
+        <if test="keyword != null">
+            and (role_name like CONCAT('%',#{keyword},'%') or role_type like CONCAT('%',#{keyword},'%'))
+        </if>
+    </select>
+</mapper>

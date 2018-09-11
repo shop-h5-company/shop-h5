@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.DqTicketExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select dq_ticket_id from dq_ticket t
+		<where>
+			<if test="dqTicket.userId!=null and dqTicket.userId!=''">
+				and t.user_id=#{dqTicket.userId}
+			</if>
+			<if test="dqTicket.status!=null and dqTicket.status!=''">
+				and   t.status=#{dqTicket.status}
+			</if>
+			<if test="dqTicket.source!=null and dqTicket.source!=''">
+				and      t.source=#{dqTicket.source}
+			</if>
+		</where>
+	</select>
+</mapper>

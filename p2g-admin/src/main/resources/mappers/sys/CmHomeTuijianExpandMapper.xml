@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.CmHomeTuijianExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select cm_home_tuijian_id from cm_home_tuijian where 1=1
+		<if test="beginTime != null and beginTime != ''">
+		<![CDATA[  AND DATE_FORMAT(create_time,'%y-%m-%d') >= DATE_FORMAT(#{beginTime},'%y-%m-%d') ]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+		<![CDATA[  AND DATE_FORMAT(create_time,'%y-%m-%d') <= DATE_FORMAT(#{endTime},'%y-%m-%d') ]]>
+		</if>
+		
+	</select>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.TaskFireLogExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select fire_log_id from task_fire_log where 1=1
+		<if test="groupName != null and groupName != ''">
+ 			and group_name like  '%${groupName}%'
+ 		</if>
+		<if test="startTime != null">
+			and DATE_FORMAT(start_time,'%y%m%d') = DATE_FORMAT(#{startTime},'%y%m%d')
+		</if>
+	</select>
+</mapper>

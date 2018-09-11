@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="default" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.3.122:3306/p2g?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"
+                        userId="jajr" password="111111">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.p2g.mybatis.model.generator" targetProject="src/main/java">
+            <property name="constructorBased" value="false"/>
+            <property name="useActualColumnNames" value="true" />
+            <property name="enableSubPackages" value="false"/>
+            <property name="immutable" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mappers.generator" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.p2g.mybatis.dao.generator" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value=""/>
+            <property name="methodNameCalculator" value=""/>
+            <property name="rootInterface" value=""/>
+        </javaClientGenerator>
+
+        <!--后台管理 begin-->
+        <table tableName="admin_do_log">
+            <generatedKey column="admin_do_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin">
+            <generatedKey column="admin_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_login_log">
+            <generatedKey column="admin_login_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_permission">
+            <generatedKey column="permission_id" sqlStatement="JDBC" />
+        </table>
+
+        <table tableName="admin_do_kind">
+        </table>
+
+        <table tableName="admin_role">
+            <generatedKey column="role_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_role_permission">
+            <generatedKey column="role_permission_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_user_role">
+            <generatedKey column="user_role_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_user_permission">
+            <generatedKey column="user_permission_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_menu">
+            <generatedKey column="admin_menu_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_role_menu">
+            <generatedKey column="admin_role_menu_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="admin_user_menu">
+            <generatedKey column="admin_user_menu_id" sqlStatement="JDBC" />
+        </table>
+        <!--后台管理 end-->
+        <!--用户 begin-->
+        <table tableName="users">
+            <generatedKey column="user_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="user_login_log">
+            <generatedKey column="user_login_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="user_change_log">
+            <generatedKey column="user_change_log_id" sqlStatement="JDBC" />
+        </table>
+        <!--用户 end-->
+        <!--理财 begin-->
+        <table tableName="dq_product">
+            <generatedKey column="dq_product_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="dq_ticket">
+            <generatedKey column="dq_ticket_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="dq_trans_log">
+            <generatedKey column="dq_trans_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="dq_trans_tmp_log">
+            <generatedKey column="dq_trans_tmp_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="dq_bank_check">
+            <generatedKey column="deposit_bank_check_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="fund_trans_list">
+            <generatedKey column="fund_trans_list_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="fund_account">
+        </table>
+
+        <table tableName="hq_profit_log">
+            <generatedKey column="hq_profit_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="hq_trans_log">
+            <generatedKey column="hq_trans_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="hq_withdraw_check">
+            <generatedKey column="hq_withdraw_check_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="coupons">
+            <generatedKey column="coupons_id" sqlStatement="JDBC" />
+        </table>
+        <!--理财 end-->
+
+        <!--连连支付 begin-->
+        <table tableName="lian_account">
+        </table>
+        <table tableName="lian_recharge_log">
+            <generatedKey column="lian_recharge_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="lian_area">
+        </table>
+        <table tableName="lian_withdraw_log">
+            <generatedKey column="lian_withdraw_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="lian_bank">
+        </table>
+        <!--连连支付 end-->
+        <!--公共 begin-->
+        <table tableName="cm_sms_log">
+            <generatedKey column="cm_sms_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_sms_model">
+            <generatedKey column="cm_sms_model_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_sms_code">
+            <generatedKey column="cm_sms_code_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_announcement">
+            <generatedKey column="announcement_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_home_tuijian">
+            <generatedKey column="cm_home_tuijian_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_config">
+            <generatedKey column="cm_config_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="cm_weixin_model">
+            <generatedKey column="cm_weixin_model_id" sqlStatement="JDBC" />
+        </table>
+        <!--公共 end-->
+
+        <!-- 定时 begin -->
+        <table tableName="task_fire_log">
+            <generatedKey column="fire_log_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="task_group">
+            <generatedKey column="group_id" sqlStatement="JDBC" />
+        </table>
+        <table tableName="task_scheduler">
+            <generatedKey column="scheduler_id" sqlStatement="JDBC" />
+        </table>
+        <!-- 定时 end -->
+        <!--<table tableName="view_role_permission">
+        </table>-->
+    </context>
+</generatorConfiguration>

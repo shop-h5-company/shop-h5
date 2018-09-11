@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.AdminExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select admin_id from admin where 1=1
+		<if test="account != null">and admin_code=#{account}</if>
+		<if test="password != null">and password=#{password}</if>
+		<if test="status != null">and status=#{status}</if>
+		<if test="adminStatus != null and adminStatus != ''">and (status ='enabled' or status ='disabled')</if>
+		<if test="keyword != null">
+			and (admin_code like CONCAT('%',#{keyword},'%') or admin_name like CONCAT('%',#{keyword},'%'))
+		</if>
+		<if test="adminCode != null and adminCode !=''">
+			and admin_code like CONCAT('%',#{adminCode},'%')
+		</if>
+		<if test="adminNameq != null and adminNameq !=''">
+			and admin_name like CONCAT('%',#{adminNameq},'%')
+		</if>
+	</select>
+</mapper>

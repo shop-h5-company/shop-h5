@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.UsersExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select user_id from users where 1=1
+		<if test="mobile != null and mobile != ''">and mobile like CONCAT('%',#{mobile},'%')</if>
+		<if test="userName != null and userName != ''">and user_name like CONCAT('%',#{userName},'%')</if>
+	</select>
+
+	<select id="queryCount" parameterType="java.util.Map" resultType="java.lang.Long">
+		select count(*),substr(t.reg_time,1,10) from users t where 1 = 1
+		<if test="regTime != null and regTime != ''">
+			and t.reg_time like 'Users.regTime%' group by
+			substr(t.reg_time,1,10)
+		</if>
+	</select>
+
+	<select id="queryRegisterCount" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+		MONTH ( REG_TIME ) as regTime
+		FROM
+		USERS t
+		WHERE
+		YEAR ( REG_TIME ) = #{regDate}
+		GROUP BY
+		MONTH ( REG_TIME )
+		UNION ALL
+		SELECT COUNT(*) as regCount FROM USERS
+		WHERE
+		YEAR ( REG_TIME ) = #{regDate}
+		GROUP BY
+		MONTH ( REG_TIME )
+	</select>
+	
+	<select id="queryInvestmentCount" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT	distinct
+		MONTH ( trans_time ) as transTIME
+		FROM
+		hq_trans_log t
+		WHERE
+		trans_kind = 'invest'
+		and status = 'success'
+		AND YEAR (trans_time) = #{regDate}
+		GROUP BY
+		MONTH ( trans_time )
+		UNION ALL
+		SELECT COUNT(distinct user_id) as regCount FROM hq_trans_log
+		WHERE
+		trans_kind = 'invest'
+		and status = 'success'
+		and YEAR ( trans_time ) = #{regDate}
+		GROUP BY
+		MONTH ( trans_time )
+	</select>
+
+
+</mapper>

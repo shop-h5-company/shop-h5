@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.CmSmsModelExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select cm_sms_model_id from cm_sms_model where 1=1
+		<if test="modelCode != null and modelCode != ''">
+ 			and model_code like CONCAT('%',#{modelCode},'%')
+ 		</if>
+		<if test="updateTime != null">
+			and DATE_FORMAT(update_time,'%y%m%d') = DATE_FORMAT(#{updateTime},'%y%m%d')
+		</if>
+	</select>
+</mapper>

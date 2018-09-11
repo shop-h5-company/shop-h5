@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.LianRechargeLogExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select lian_recharge_log_id from lian_recharge_log where 1=1
+		<if test="orderNo != null and orderNo != ''">
+			and order_no like CONCAT('%',#{orderNo},'%')
+		</if>
+		<if test="agreeNo != null and agreeNo != ''">
+			and agree_no like CONCAT('%',#{agreeNo},'%')
+		</if>
+		<if test="userId != null and userId != ''">
+			and status =#{userId}
+		</if>
+		<if test="verifyStatus != null and verifyStatus != ''">
+			and verify_status =#{verifyStatus}
+		</if>
+		<if test="status != null and status != ''">
+			and status =#{status}
+		</if>
+		
+	</select>
+</mapper>

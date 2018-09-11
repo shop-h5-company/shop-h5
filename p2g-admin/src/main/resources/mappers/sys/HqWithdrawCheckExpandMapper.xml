@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.HqWithdrawCheckExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select hq_withdraw_check_id from hq_withdraw_check where 1=1
+		<if test="payStatusList !=null and payStatusList.size() > 0">
+			and	pay_status in 
+			<foreach item="item" index="index" collection="payStatusList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="checkStatus !=null and checkStatus !=''">
+			and check_status = #{checkStatus}
+		</if>
+		<if test="payStatus !=null and payStatus !=''">
+			and pay_status = #{payStatus}
+		</if>
+		<if test="userId !=null and userId !=''">
+			and user_id = #{userId}
+		</if>
+		<if test="transNo !=null and transNo !=''">
+			and trans_no like '%${transNo}%'
+		</if>
+		<if test="payAdmin !=null and payAdmin !=''">
+			and pay_admin like CONCAT('%',#{payAdmin},'%')
+		</if>
+		<if test="beginpTime != null and beginpTime != ''">
+		<![CDATA[  AND DATE_FORMAT(pay_time,'%y-%m-%d') >= DATE_FORMAT(#{beginpTime},'%y-%m-%d') ]]>
+		</if>
+		<if test="endpTime != null and endpTime != ''">
+		<![CDATA[  AND DATE_FORMAT(pay_time,'%y-%m-%d') <= DATE_FORMAT(#{endpTime},'%y-%m-%d') ]]>
+		</if>
+		<if test="checkStatusNotDo !=null and checkStatusNotDo !='' and checkStatusBack !=null and checkStatusBack !=''">
+			and check_status in (#{checkStatusNotDo},#{checkStatusBack})
+		</if>
+		<if test="checkAdmin !=null and checkAdmin !=''">
+			and check_admin like CONCAT('%',#{checkAdmin},'%')
+		</if>
+		<if test="begincTime != null and begincTime != ''">
+		<![CDATA[  AND DATE_FORMAT(check_time,'%y-%m-%d') >= DATE_FORMAT(#{begincTime},'%y-%m-%d') ]]>
+		</if>
+		<if test="endcTime != null and endcTime != ''">
+		<![CDATA[  AND DATE_FORMAT(check_time,'%y-%m-%d') <= DATE_FORMAT(#{endcTime},'%y-%m-%d') ]]>
+		</if>
+	</select>
+</mapper>

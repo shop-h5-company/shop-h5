@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.CmConfigExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select cm_config_id from cm_config where 1=1
+		<if test="configCode != null and configCode != ''">
+ 			and config_code like CONCAT('%',#{configCode},'%')
+ 		</if>
+ 		<if test="configValue != null and configValue != ''">
+ 			and config_value like CONCAT('%',#{configValue},'%')
+ 		</if>
+		<if test="createTime != null">
+			and DATE_FORMAT(create_time,'%y%m%d') = DATE_FORMAT(#{createTime},'%y%m%d')
+		</if>
+	</select>
+</mapper>

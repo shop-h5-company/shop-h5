@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.p2g.mybatis.dao.sys.UserLoginLogExpandMapper">
+	<select id="query" parameterType="java.util.Map" resultType="java.lang.Long">
+		select user_login_log_id from user_login_log where 1=1
+		<if test="loginMode != null and loginMode != ''">
+			and login_mode like CONCAT('%',#{loginMode},'%')
+		</if>
+		<if test="loginTime != null">
+			and DATE_FORMAT(login_time,'%y%m%d') = DATE_FORMAT(#{loginTime},'%y%m%d')
+		</if>
+	</select>
+</mapper>
