@@ -1,0 +1,23 @@
+﻿=== 1.1.2 2016-08-05 =
+BaseCacheService，增加queryByCode,根据记录编码查询
+
+=== 1.1.1 2016-07-28 =
+BaseCacheService，增加insert方法（针对自定义主键），原update方法只支持自增主键的新增
+=== 1.1.0 2016-07-22 =
+更新DateUtil类
+=== 1.0.9 2016-07-18 =
+删除SysTransConstants类，单独放到svr
+=== 1.0.8 2016-07-15 =
+更新SysTransConstants类
+=== 1.0.7 2016-07-11 =
+增加SysTransConstants类
+=== 1.0.6 2016-07-08 =
+Constants增加CACHE_DB_NAMESPACE，统一Db缓存命名空间
+=== 1.0.5 2016-07-04 =
+完善BaseController和WebUtil类
+=== 1.0.4 2016-06-27 =
+完善DateUtil类
+=== 1.0.3 2016-06-27 =
+修改查询和删除方法存在的bug
+=== 1.0.1 2016-06-20 =
+项目创建
