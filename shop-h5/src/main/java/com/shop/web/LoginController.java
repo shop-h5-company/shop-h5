@@ -106,6 +106,7 @@ public class LoginController extends MyBaseController {
         return JSP_PATH + "login";
     }
 
+    
     /**
      * 登录
      *
